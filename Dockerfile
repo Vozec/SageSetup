@@ -9,9 +9,9 @@ ENV SHELL /bin/bash
 
 ###### Deps ######
 RUN apt-get update
-RUN apt-get -y -qq install --yes sudo bash nano wget curl sagemath sagemath-doc-en sagemath-jupyter
-RUN pip install --upgrade pip
-RUN python3 -m pip install pwntools
+RUN apt-get -y -qq install --yes sudo bash nano netcat wget iproute2 curl sagemath sagemath-doc-en sagemath-jupyter
+RUN python3.9 -m pip install --upgrade pip
+RUN python3.9 -m pip install pwntools pycryptodome
 ##################
 
 
