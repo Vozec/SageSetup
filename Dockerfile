@@ -1,5 +1,6 @@
 ### Dockerfile ###
-FROM python:3.10.4-slim-bullseye
+# FROM python:3.10.4-slim-bullseye
+FROM debian:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV USER SageMaster
@@ -8,8 +9,10 @@ ENV SHELL /bin/bash
 ##################
 
 ###### Deps ######
-RUN apt-get update
-RUN apt-get -y -qq install --yes sudo bash nano netcat wget iproute2 curl sagemath sagemath-doc-en sagemath-jupyter
+RUN rm -rf /var/lib/apt/lists/* ; apt-get clean;apt-get update --fix-missing;apt-get -y --yes upgrade
+RUN apt-get -y -qq install --yes sudo bash nano netcat wget iproute2 curl 
+RUN apt-get -y -qq install --yes sagemath sagemath-doc-en sagemath-jupyter
+
 RUN python3.9 -m pip install --upgrade pip
 RUN python3.9 -m pip install pwntools pycryptodome
 ##################
