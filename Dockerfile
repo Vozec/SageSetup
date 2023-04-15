@@ -10,7 +10,7 @@ ENV SHELL /bin/bash
 
 ###### Deps ######
 RUN rm -rf /var/lib/apt/lists/* ; apt-get clean;apt-get update --fix-missing;apt-get -y --yes upgrade
-RUN apt-get -y -qq install --yes sudo bash nano netcat wget iproute2 curl 
+RUN apt-get -y -qq install --yes sudo bash nano socat netcat wget iproute2 curl 
 RUN apt-get -y -qq install --yes sagemath sagemath-doc-en sagemath-jupyter
 
 RUN python3.9 -m pip install --upgrade pip
