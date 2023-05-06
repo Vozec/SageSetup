@@ -14,7 +14,7 @@ RUN apt-get -y -qq install --yes sudo bash nano socat netcat wget iproute2 curl
 RUN apt-get -y -qq install --yes sagemath sagemath-doc-en sagemath-jupyter
 
 RUN python3.9 -m pip install --upgrade pip
-RUN python3.9 -m pip install pwntools pycryptodome
+RUN python3.9 -m pip install pwntools pycryptodome z3-solver
 ##################
 
 
