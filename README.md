@@ -1,5 +1,11 @@
 # SageSetup
+## Installation:
+```bash
+docker build -t sagemaths .
+docker run -it -v "$(pwd):/home/SageMaster/sage" sagemaths
+```
 
+# Old
 
 ## Setup 
 
