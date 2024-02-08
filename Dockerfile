@@ -1,35 +1,20 @@
-### Dockerfile ###
-# FROM python:3.10.4-slim-bullseye
-FROM debian:latest
+FROM sagemath/sagemath
 
-ENV DEBIAN_FRONTEND=noninteractive
 ENV USER SageMaster
-ENV WORK /home/${USER}/sage
-ENV SHELL /bin/bash 
-##################
 
-###### Deps ######
-RUN rm -rf /var/lib/apt/lists/* ; apt-get clean;apt-get update --fix-missing;apt-get -y --yes upgrade
-RUN apt-get -y -qq install --yes sudo bash nano socat netcat wget iproute2 curl 
-RUN apt-get -y -qq install --yes sagemath sagemath-doc-en sagemath-jupyter
+RUN sudo apt-get clean && \
+	sudo apt-get update --fix-missing &&\
+	sudo apt-get -y --yes upgrade
 
-RUN python3.9 -m pip install --upgrade pip
-RUN python3.9 -m pip install pwntools pycryptodome z3-solver
-##################
+RUN sudo apt-get -y -qq install --yes sudo bash nano socat netcat wget iproute2 curl 
 
-
-##### Config ######
-RUN useradd -m -s /bin/bash ${USER} ;\
-	echo "${USER}:${USER}" | chpasswd ;\
-	mkdir /home/${USER}/share ;\
-	echo "cd /home/${USER}/share;zsh" >> /root/.bashrc ;\
-	chown -R ${USER} /home/${USER}
+RUN /home/sage/sage/local/var/lib/sage/venv-python3.11.1/bin/python3 -m pip install --upgrade pip && \
+	/home/sage/sage/local/var/lib/sage/venv-python3.11.1/bin/python3 -m pip install pwntools pycryptodome z3-solver
 
 RUN \
-    sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.5/zsh-in-docker.sh)" ;\
-    echo "cd /home/${USER}/share" >> /root/.zshrc
-##################
+    sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.5/zsh-in-docker.sh)" && \
+    echo "zsh" >> /home/sage/.bashrc && \
+    echo "cd /home/${USER}/sage" >> /home/sage/.zshrc
 
 
-WORKDIR ${WORK}
 CMD ["/bin/bash"]
